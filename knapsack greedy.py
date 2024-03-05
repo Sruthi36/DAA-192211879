@@ -10,19 +10,18 @@ def knapsack_greedy(values, weights, capacity):
     total_value = 0
     total_weight = 0
     selected_items = []
-    rem_cap = capacity
 
     for vpw, weight, value in value_per_weight:
-        if total_weight + weight <= capacity:
+        if weight <= capacity:
             selected_items.append((weight, value))
             total_weight += weight
             total_value += value
-            rem_cap = rem_cap - total_weight
+            capacity = capacity - weight
         else:
-            selected_items.append((weight,value))
-            total_weight += weight
-            total_value += value
-            rem_cap = rem_cap - total_weight
+            selected_items.append((capacity,(value/weight)*capacity))
+            total_weight += capacity
+            total_value += (value/weight)*capacity
+            capacity -= total_weight
             
 
     return total_value, selected_items
